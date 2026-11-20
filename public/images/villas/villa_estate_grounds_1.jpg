@@ -1,0 +1,74 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https://seablissbeachresort.ph/img/logo.svg"
+    />
+    <title>Seabliss Beach Resort | Beachfront Villas in Lian, Batangas</title>
+    <meta
+      name="description"
+      content="Your blissful escape awaits at Seabliss Beach Resort in Lian, Batangas. Luxury beachfront villas with plunge pools, stunning ocean views, and a short drive from Manila. Book direct today."
+    />
+    <meta name="theme-color" content="#195b6d" />
+    <meta
+      property="og:title"
+      content="Seabliss Beach Resort — Your Blissful Escape"
+    />
+    <meta
+      property="og:description"
+      content="Luxury beachfront villas with plunge pools in Lian, Batangas. Just a short drive from Manila. Experience the ultimate coastal escape at Seabliss Beach Resort."
+    />
+    <meta property="og:site_name" content="Seabliss Beach Resort" />
+    <meta property="og:url" content="https://www.seablissbeachresort.ph" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://seablissbeachresort.ph/img/banner2.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Seabliss Beach Resort — Your Blissful Escape"
+    />
+    <meta
+      name="twitter:description"
+      content="Luxury villas and suites on the beach. Stunning ocean views, fine dining, spa, and exclusive direct booking rates. Book now and save up to 50%."
+    />
+    <meta
+      name="twitter:image"
+      content="https://seablissbeachresort.ph/img/banner2.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/assets/index-_eONL8H7.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D0l1ivYV.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+      var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+      (function () {
+        var s1 = document.createElement("script"),
+          s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = "https://embed.tawk.to/6a2fe062e527571d4c0ee51f/default";
+        s1.charset = "UTF-8";
+        s1.setAttribute("crossorigin", "*");
+        s0.parentNode.insertBefore(s1, s0);
+      })();
+    </script>
+    <!--End of Tawk.to Script-->
+  </body>
+</html>

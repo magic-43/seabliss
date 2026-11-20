@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --color-admin-bg: #071720;
+  --color-admin-surface: #0A222E;
+  --color-admin-hover: #12384A;
+  --color-admin-border: #184154;
+  --color-admin-active: #184A5E;
+  --color-admin-border-hover: #1E4E63;
+  --color-admin-active-hover: #1E5C75;
+  --color-admin-text: #F4F8FA;
+  --color-admin-muted: #8EAEBA;
+  --color-admin-accent-hover: #b89a72;
+
+  /* Seabliss Beach Resort — Quiet Luxury Coastal Palette */
+  --color-seabliss-aegean: #0C2836;
+  --color-seabliss-teal: #195B6D;
+  --color-seabliss-teal-dark: #124452;
+  --color-seabliss-teal-light: #257C94;
+  --color-seabliss-sand: #C8AA82;
+  --color-seabliss-sand-light: #E8DDCF;
+  --color-seabliss-linen: #FBFBF9;
+  --color-seabliss-pearl: #F4F5F2;
+  --color-seabliss-charcoal: #15181B;
+  --color-seabliss-slate: #4E565B;
+  
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+@layer base {
+  :root {
+    background-color: var(--color-seabliss-linen);
+    color: var(--color-seabliss-charcoal);
+  }
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Prevent iOS Safari auto-zoom on form inputs */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+@layer components {
+  .admin-card {
+    @apply min-w-0 overflow-hidden rounded-2xl border border-admin-border bg-admin-surface;
+  }
+
+  .admin-label {
+    @apply mb-2 block text-sm font-medium text-admin-text;
+  }
+
+  .admin-input {
+    @apply min-h-12 w-full min-w-0 rounded-xl border border-admin-border bg-admin-bg px-3.5 py-3 text-base text-admin-text outline-none placeholder:text-admin-muted/70 focus:border-seabliss-sand focus:ring-2 focus:ring-seabliss-sand/20 disabled:opacity-60;
+  }
+
+  .admin-button-primary {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-seabliss-sand px-5 py-3 text-sm font-semibold text-admin-bg hover:bg-admin-accent-hover disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .admin-button-secondary {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-admin-border bg-admin-hover px-4 py-3 text-sm font-medium text-admin-text hover:bg-admin-active disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .admin-button-icon {
+    @apply inline-flex size-11 items-center justify-center rounded-xl border border-admin-border text-admin-muted hover:bg-admin-hover hover:text-admin-text disabled:opacity-50;
+  }
+
+  .admin-savebar {
+    @apply fixed inset-x-0 bottom-0 z-40 border-t border-admin-border bg-admin-surface p-4 md:static md:rounded-2xl md:border md:p-5;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .admin-content {
+    padding-bottom: calc(11rem + env(safe-area-inset-bottom));
+  }
+
+  .admin-bottom-nav {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .admin-mobile-header {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .admin-shell :is(a, button, input, select, textarea):focus-visible {
+    outline: 2px solid var(--color-seabliss-sand);
+    outline-offset: 3px;
+  }
+
+  .admin-shell :is(input, select, textarea) {
+    scroll-margin-block: 7rem 12rem;
+  }
+}
