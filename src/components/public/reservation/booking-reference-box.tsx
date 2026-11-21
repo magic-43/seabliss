@@ -29,7 +29,7 @@ export default function BookingReferenceBox({ referenceNumber }: { referenceNumb
       {/* Booking Reference Container with copy icon inside on desktop/tablet only */}
       <div className="inline-flex items-center justify-center sm:justify-between gap-3 px-4 sm:px-6 py-2.5 bg-white border border-[#bcb09e] rounded-lg shadow-xs max-w-full">
         <span
-          className="font-mono text-xl xs:text-2xl sm:text-3xl font-bold tracking-wider text-[#0c2836] select-all whitespace-nowrap"
+          className="font-mono text-xl sm:text-3xl font-bold tracking-wider text-[#0c2836] select-all whitespace-nowrap"
           tabIndex={0}
           aria-label={`Booking reference ${referenceNumber}`}
         >
