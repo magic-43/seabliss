@@ -26,21 +26,21 @@ export default function BookingReferenceBox({ referenceNumber }: { referenceNumb
 
   return (
     <div className="my-2.5">
-      {/* Booking Reference Container with copy icon inside */}
-      <div className="inline-flex items-center justify-between gap-3 px-4 sm:px-6 py-2.5 bg-white border border-[#bcb09e] rounded-lg shadow-xs max-w-full">
+      {/* Booking Reference Container with copy icon inside on desktop/tablet only */}
+      <div className="inline-flex items-center justify-center sm:justify-between gap-3 px-4 sm:px-6 py-2.5 bg-white border border-[#bcb09e] rounded-lg shadow-xs max-w-full">
         <span
-          className="font-mono text-2xl sm:text-3xl font-bold tracking-wider text-[#0c2836] select-all"
+          className="font-mono text-xl xs:text-2xl sm:text-3xl font-bold tracking-wider text-[#0c2836] select-all whitespace-nowrap"
           tabIndex={0}
           aria-label={`Booking reference ${referenceNumber}`}
         >
           {referenceNumber}
         </span>
 
-        {/* Copy icon INSIDE the container */}
+        {/* Copy icon INSIDE the container - desktop/tablet only, hidden on mobile */}
         <button
           type="button"
           onClick={handleCopy}
-          className="p-1.5 rounded-md text-[#195b6d] hover:bg-[#195b6d]/10 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-[#195b6d]"
+          className="hidden sm:inline-flex p-1.5 rounded-md text-[#195b6d] hover:bg-[#195b6d]/10 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-[#195b6d]"
           aria-label="Copy booking reference code"
           title={copied ? 'Copied!' : 'Copy reference code'}
         >
