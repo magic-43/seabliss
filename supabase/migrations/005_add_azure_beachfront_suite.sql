@@ -33,7 +33,7 @@ INSERT INTO public.rooms (
   'Beachfront Wing',
   'Barefoot luxury and private oceanfront plunge pool living',
   'An exquisite 4-guest beachfront suite offering sweeping panoramic sea views, direct shoreline access, a fully equipped modern kitchen and island bar, expansive open-plan lounge, and a private plunge pool deck tailored for peaceful coastal living.',
-  8,
+  3,
   ARRAY[
     'Buffet Breakfast & Dinner',
     'Welcome Drinks upon Arrival',
