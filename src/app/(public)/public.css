@@ -1,0 +1,408 @@
+.public-site {
+  --public-gutter: clamp(22px, 8.1vw, 156px);
+  --public-ease: cubic-bezier(.22, 1, .36, 1);
+  --public-motion: 450ms;
+  --public-cream: #f7f3ec;
+  --public-section-space: clamp(64px, 6vw, 112px);
+  position: relative;
+  color: #15181b;
+  background: var(--public-cream);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+.public-site :where(h1, h2, h3, p, figure, ul) { margin: 0; }
+.public-site :where(a, button) { -webkit-tap-highlight-color: transparent; }
+.public-site :where(a, button, summary):focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.public-site :where(section, footer) { scroll-margin-top: 20px; }
+.public-site main { outline: none; }
+.public-site a { color: inherit; text-decoration: none; }
+.public-site button { cursor: pointer; font-family: var(--font-sans); }
+.public-site button:disabled { cursor: default; }
+.public-site :where(h1, h2, h3) { font-family: var(--font-serif); font-weight: 500; line-height: 1.08; }
+.public-site h2 { font-size: clamp(36px, 3.5vw, 56px); }
+.public-site .public-container { width: calc(100% - var(--public-gutter) * 2); max-width: 1440px; margin-inline: auto; }
+.public-site .public-eyebrow { font-family: var(--font-sans); font-size: 10px; line-height: 1.7; letter-spacing: .25em; font-weight: 500; color: #784e26; }
+.public-site .public-button { display: inline-flex; min-height: 48px; justify-content: center; align-items: center; gap: 14px; padding: 13px 26px; border: 1px solid #c8aa82; border-radius: 4px; background: linear-gradient(110deg, #e4c78f, #c8aa82); color: #16242a; font-size: 14px; font-weight: 600; line-height: 1.5; text-align: center; transition: filter 200ms ease, background 200ms ease; }
+.public-site .public-button:hover { filter: brightness(1.08); }
+.public-site .public-button-teal { border-color: #195b6d; background: linear-gradient(110deg, #195b6d, #0c3542); color: white; }
+.public-site .public-text-link { display: inline-flex; min-height: 44px; align-items: center; gap: 18px; border-bottom: 1px solid #b99c76; color: #805120; font-size: 14px; line-height: 1.5; }
+.public-site .public-text-link svg { transition: transform 200ms var(--public-ease); }
+.public-site .public-text-link:hover svg { transform: translateX(4px); }
+.public-site .public-skip-link { position: fixed; top: 12px; left: 12px; z-index: 100; padding: 14px 20px; transform: translateY(-180%); background: #fbfbf9; color: #0c2836; }
+.public-site .public-skip-link:focus { transform: translateY(0); }
+
+/* Transparent navigation shares the full-width hero photograph, sticky on scroll with blur. */
+.public-site .public-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  color: white;
+  transition: background 0.3s ease, padding 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  padding-block: 22px;
+}
+.public-site .public-header.public-header-solid {
+  background: rgba(12, 40, 54, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-block: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+}
+.public-site .public-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.public-site .public-brand { display: inline-flex; flex-shrink: 0; align-items: center; gap: 10px; color: inherit; }
+.public-site .public-brand-mark { display: block; width: auto; height: 40px; }
+.public-site .public-brand > span { display: inline-flex; flex-direction: column; align-items: flex-start; font-family: var(--font-serif); font-size: 29px; font-weight: 500; line-height: 1; letter-spacing: .13em; text-transform: uppercase; }
+.public-site .public-brand small { display: block; margin-top: 7px; font-family: var(--font-sans); font-size: 6px; font-weight: 400; line-height: 1; letter-spacing: .34em; text-align: left; }
+.public-site .public-desktop-nav { display: flex; align-items: center; gap: clamp(14px, 1.4vw, 27px); }
+.public-site .public-desktop-nav a { display: inline-flex; min-height: 44px; align-items: center; border-bottom: 1px solid transparent; font-size: 14px; white-space: nowrap; }
+.public-site .public-desktop-nav a[aria-current="page"], .public-site .public-desktop-nav a:hover { border-color: #d6b980; }
+.public-site .public-header-reserve { padding: 11px 18px; font-size: 13px; min-height: 44px; gap: 8px; white-space: nowrap; }
+.public-site .public-menu-trigger { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid #ffffff70; border-radius: 3px; background: #0c28362b; color: inherit; }
+.public-site .public-hero { position: relative; isolation: isolate; display: flex; align-items: center; height: 82svh; min-height: 680px; max-height: 980px; overflow: hidden; color: white; }
+.public-site .public-hero-image { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center 65%; }
+.public-site .public-hero-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #0c283699, #0c283633 78%), #3c9dc438; }
+.public-site .public-hero-content { padding-top: 104px; padding-bottom: 64px; }
+.public-site .public-hero .public-eyebrow { font-size: 10px; color: white; letter-spacing: .32em; }
+.public-site .public-hero h1 { margin-top: 20px; font-size: clamp(60px, 5.5vw, 102px); font-weight: 400; line-height: 1.03; letter-spacing: .015em; text-transform: uppercase; }
+.public-site .public-hero-intro { max-width: 440px; margin-top: 24px; font-size: 15px; line-height: 1.85; color: #ffffffed; }
+.public-site .public-hero-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 34px; }
+.public-site .public-hero-scroll { position: absolute; display: grid; place-items: center; width: 44px; height: 44px; bottom: 24px; left: calc(50% - 22px); }
+.public-site .public-hero-enter { animation: public-enter 600ms var(--public-ease) both; }
+@keyframes public-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Shared section spacing lets the approved compositions breathe at full browser size. */
+.public-site .public-story { padding-block: var(--public-section-space); }
+.public-site .public-story-grid { display: grid; grid-template-columns: 1.13fr 1fr; align-items: center; gap: clamp(35px, 4.8vw, 80px); }
+.public-site .public-story-image { position: relative; aspect-ratio: 1.65; overflow: hidden; border-radius: 7px; }
+.public-site .public-story-image img { object-fit: cover; object-position: center 70%; }
+.public-site .public-story-copy h2 { margin-top: 14px; }
+.public-site .public-story-copy > p:not(.public-eyebrow) { max-width: 550px; margin-top: 22px; font-size: 15px; line-height: 1.85; }
+.public-site .public-story-copy .public-text-link { margin-top: 18px; }
+
+/* Three complete room cards, with native scrolling and an inline full collection. */
+.public-site .public-accommodations { padding-block: var(--public-section-space); border-top: 1px solid #ffffffaa; }
+.public-site .public-accommodation-heading { text-align: center; }
+.public-site .public-accommodation-heading h2 { margin-top: 12px; }
+.public-site .public-accommodation-heading > p:not(.public-eyebrow) { margin-top: 18px; font-size: 15px; line-height: 1.8; }
+.public-site .public-accommodation-stage { position: relative; margin-top: 40px; }
+.public-site .public-room-list { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 3); align-items: stretch; gap: 24px; overflow-x: auto; padding: 0 0 5px; list-style: none; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.public-site .public-room-list::-webkit-scrollbar { display: none; }
+.public-site .public-room { min-width: 0; overflow: hidden; border: 1px solid #ded5c6; border-radius: 8px; scroll-snap-align: start; background: #fbfbf980; }
+.public-site .public-room-image { position: relative; aspect-ratio: 1.6; overflow: hidden; background: #e4ded2; }
+.public-site .public-room-image img { object-fit: cover; transition: transform 450ms var(--public-ease); }
+@media (hover: hover) { .public-site .public-room:hover img { transform: scale(1.035); } }
+.public-site .public-room-copy { padding: 22px 20px 25px; }
+.public-site .public-room h3 { font-size: clamp(26px, 2.1vw, 34px); font-weight: 500; line-height: 1.15; }
+.public-site .public-room h3 a:hover { color: #195b6d; }
+.public-site .public-room-facts { display: flex; justify-content: space-between; align-items: end; gap: 12px; margin-top: 16px; }
+.public-site .public-room-facts > div { min-width: 0; }
+.public-site .public-room-guests, .public-site .public-room-amenity { display: flex; align-items: center; gap: 7px; font-size: 12px; line-height: 1.7; }
+.public-site .public-room-guests svg, .public-site .public-room-amenity svg { flex-shrink: 0; }
+.public-site .public-room-amenity { margin-top: 8px; }
+.public-site .public-room-price { flex-shrink: 0; color: #85521e; font-family: var(--font-serif); font-size: 28px; font-weight: 600; line-height: 1; white-space: nowrap; }
+.public-site .public-room-price span { display: block; margin-top: 5px; color: #37444a; font-family: var(--font-sans); font-size: 9px; font-weight: 400; text-align: right; }
+.public-site .public-rail-controls { position: absolute; z-index: 1; inset: 0; pointer-events: none; }
+.public-site .public-rail-controls button { position: absolute; top: 25%; display: grid; width: 38px; height: 38px; place-items: center; padding: 0; border: 1px solid white; border-radius: 50%; background: #f2ece3e6; color: #805120; pointer-events: auto; }
+.public-site .public-rail-controls button:first-child { left: -58px; }
+.public-site .public-rail-controls button:last-child { right: -58px; }
+.public-site .public-rail-controls button:disabled { opacity: .4; }
+.public-site .public-rail-controls button:hover:enabled { background: #e4d5c2; }
+.public-site .public-accommodation-gallery { text-align: center; }
+.public-site .public-room-list { text-align: left; }
+.public-site .public-view-all { margin-top: 32px; min-width: 270px; }
+.public-site .public-rate-note { max-width: 850px; margin: 24px auto 0; font-size: 11px; line-height: 1.8; text-align: center; color: #5a6161; }
+.public-site .public-room-no-photo { display: grid; height: 100%; place-items: center; padding: 18px; font-family: var(--font-serif); font-size: 24px; text-align: center; }
+.public-site .public-accommodations-unavailable { padding-block: 35px; text-align: center; }
+.public-site .public-accommodations-unavailable h3 { font-size: 32px; }
+.public-site .public-accommodations-unavailable p { max-width: 550px; margin: 15px auto; font-size: 13px; line-height: 1.7; }
+
+/* Larger photographic tiles retain the approved experience row. */
+.public-site .public-experiences { padding-block: var(--public-section-space); border-top: 1px solid #ffffffaa; background: #eee7dc55; }
+.public-site .public-experiences-grid { display: grid; grid-template-columns: .85fr 2fr; align-items: center; gap: 35px; }
+.public-site .public-experiences-intro h2 { margin-top: 14px; font-size: clamp(34px, 3vw, 48px); }
+.public-site .public-experiences-intro > p:not(.public-eyebrow) { max-width: 330px; margin-top: 20px; font-size: 15px; line-height: 1.85; }
+.public-site .public-experience-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.public-site .public-experience-cards figure { position: relative; aspect-ratio: 1.12; overflow: hidden; border-radius: 7px; }
+.public-site .public-experience-cards img { object-fit: cover; }
+.public-site .public-experience-cards figcaption { position: absolute; inset: auto 0 0; display: flex; align-items: center; justify-content: center; gap: 9px; min-height: 60px; padding: 14px 10px; background: linear-gradient(0deg, #e7d3b5f5, #f1dfc2c9); }
+.public-site .public-experience-cards h3 { font-size: clamp(19px, 1.7vw, 26px); white-space: nowrap; }
+
+/* The reference's half-image, half-teal private estate invitation. */
+.public-site .public-gatherings { display: grid; grid-template-columns: 1fr 1fr; background: linear-gradient(120deg, #195b6d, #0c2836); color: white; }
+.public-site .public-gatherings-image { position: relative; min-height: 480px; }
+.public-site .public-gatherings-image img { object-fit: cover; object-position: center 65%; }
+.public-site .public-gatherings-copy { align-self: center; padding: 64px clamp(35px, 6.7vw, 130px); }
+.public-site .public-gatherings .public-eyebrow { color: #f5e8d5; }
+.public-site .public-gatherings h2 { margin-top: 16px; font-size: clamp(38px, 3.5vw, 58px); font-weight: 400; }
+.public-site .public-gatherings-copy > p:not(.public-eyebrow) { max-width: 570px; margin-top: 24px; font-size: 15px; line-height: 1.85; }
+.public-site .public-gatherings .public-button { margin-top: 28px; }
+
+/* Roomy FAQ spacing preserves real settings and accessible accordion behavior. */
+.public-site .public-faq { padding-block: var(--public-section-space); }
+.public-site .public-faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: start; }
+.public-site .public-faq-heading { padding-top: 4px; }
+.public-site .public-faq h2 { margin-top: 14px; }
+.public-site .public-faq-heading > p:not(.public-eyebrow) { max-width: 320px; margin-top: 22px; font-size: 15px; line-height: 1.8; }
+.public-site .public-faq-item { border-bottom: 1px solid #cbbba5; }
+.public-site .t-acc-head { display: flex; width: 100%; min-height: 76px; justify-content: space-between; align-items: center; gap: 25px; padding: 23px 0; border: 0; background: transparent; color: #0c2836; font-family: var(--font-sans); font-size: 14px; font-weight: 500; line-height: 1.6; text-align: left; }
+.public-site .t-acc-chevron { flex-shrink: 0; }
+.public-site .t-acc-panel-inner > p { margin: 0 28px 25px 0; color: #4d5c61; font-size: 13px; line-height: 1.8; }
+
+/* Full-width photographic reservation banner and the deep teal columned footer. */
+.public-site .public-reservation { position: relative; isolation: isolate; display: grid; align-items: center; min-height: 400px; padding-block: 64px; overflow: hidden; color: white; text-align: center; }
+.public-site .public-reservation > img { z-index: -2; object-fit: cover; object-position: center 30%; }
+.public-site .public-reservation-shade { position: absolute; inset: 0; z-index: -1; background: #0c4653b3; }
+.public-site .public-reservation .public-eyebrow { color: white; }
+.public-site .public-reservation h2 { margin-top: 16px; font-weight: 400; }
+.public-site .public-reservation-copy > p:not(.public-eyebrow) { margin-top: 18px; font-size: 15px; line-height: 1.8; }
+.public-site .public-reservation .public-button { margin-top: 28px; }
+.public-site .public-reservation-copy > span { display: block; margin-top: 16px; font-size: 11px; line-height: 1.8; }
+.public-site .public-footer { padding-top: 64px; background: linear-gradient(110deg, #0c2836, #073540); color: white; }
+.public-site .public-footer-grid { display: grid; grid-template-columns: 1.25fr .9fr .8fr 1.45fr .65fr; gap: 36px; padding-bottom: 48px; }
+.public-site .public-footer-brand { display: grid; align-content: center; justify-content: start; border-right: 1px solid #ffffff40; padding-right: 30px; }
+.public-site .public-footer .public-brand { flex-direction: column; gap: 12px; }
+.public-site .public-footer .public-brand-mark { height: 45px; }
+.public-site .public-footer .public-brand > span { font-size: 28px; letter-spacing: .18em; }
+.public-site .public-footer h2 { margin-bottom: 16px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; line-height: 1.6; }
+.public-site .public-footer nav a { display: block; width: fit-content; min-height: 38px; align-content: center; font-size: 14px; line-height: 1.7; color: #f2f1ee; }
+.public-site .public-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.public-site .public-footer address { font-size: 13px; line-height: 1.8; font-style: normal; }
+.public-site .public-footer address :is(a, p) { display: flex; min-height: 34px; align-items: center; gap: 9px; overflow-wrap: anywhere; }
+.public-site .public-footer address svg { flex-shrink: 0; }
+.public-site .public-socials { display: flex; gap: 11px; }
+.public-site .public-socials a { display: grid; width: 32px; height: 32px; place-items: center; }
+.public-site .public-footer-inquiry { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; margin-top: 7px; font-size: 13px; }
+.public-site .public-contact-unavailable { margin-top: 15px; font-size: 11px; line-height: 1.7; }
+.public-site .public-footer-bottom { display: flex; min-height: 72px; justify-content: space-between; align-items: center; gap: 25px; border-top: 1px solid #ffffff66; color: #eeeae5; font-size: 10px; line-height: 1.8; }
+.public-site .public-footer-bottom > a { display: inline-flex; align-items: center; min-height: 44px; font-size: 9px; }
+
+/* The mobile site uses a conventional top menu, never a bottom navigation. */
+.public-site .public-menu { width: 100%; max-width: none; height: 100dvh; max-height: 100dvh; inset: 0; margin: 0; padding: 28px max(24px, 7vw); border: 0; overflow-y: auto; overscroll-behavior: contain; background: #0c2836; color: white; }
+.public-site .public-menu::backdrop { background: #0c2836; }
+.public-site .public-menu-top { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 40px; }
+.public-site .public-menu-close { display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid #ffffff55; border-radius: 3px; background: transparent; color: inherit; }
+.public-site .public-menu > .public-eyebrow { color: #e0c6a6; font-size: 8px; }
+.public-site .public-menu-links { display: grid; gap: 5px; margin: 20px 0 27px; }
+.public-site .public-menu-links a { display: flex; min-height: 52px; align-items: center; gap: 17px; font-family: var(--font-serif); font-size: clamp(28px, 6.8vw, 44px); font-weight: 400; line-height: 1.2; }
+.public-site .public-menu-number { width: 18px; flex-shrink: 0; font-family: var(--font-sans); font-size: 8px; color: #e0c6a6; }
+.public-site .public-menu-location { margin-top: 32px; font-size: 8px; line-height: 1.8; letter-spacing: .16em; color: #d6ddde; }
+.public-site .public-loading { min-height: 100svh; padding: 150px var(--public-gutter); background: #0c2836; color: white; }
+.public-site .public-loading .public-eyebrow { color: #e0c6a6; }
+.public-site .public-loading > p:nth-child(2) { margin-top: 25px; font-family: var(--font-serif); font-size: 48px; line-height: 1.1; }
+.public-site .public-loading > span { display: block; margin-top: 25px; font-size: 13px; }
+
+/* Visible by default; scroll reveals enhance the server-rendered content. */
+.public-site .public-reveal-ready { opacity: 0; translate: 0 12px; transition: opacity var(--public-motion) var(--public-ease), translate var(--public-motion) var(--public-ease); }
+.public-site .public-reveal-ready.is-visible { opacity: 1; translate: 0 0; }
+html:has(.public-site) { scroll-behavior: smooth; }
+@media (max-width: 1279px) {
+  .public-site .public-desktop-nav { display: none; }
+  .public-site .public-menu-trigger { display: inline-flex; }
+  .public-site .public-header-reserve { margin-left: auto; }
+  .public-site .public-header-inner { gap: 18px; }
+  .public-site .public-story-copy > p:not(.public-eyebrow) { font-size: 14px; }
+  .public-site .public-room-copy { padding-inline: 12px; }
+  .public-site .public-room-facts { flex-wrap: wrap; gap: 8px; }
+  .public-site .public-room-price { display: flex; align-items: baseline; gap: 4px; font-size: 23px; }
+  .public-site .public-room-price span { margin: 0; }
+  .public-site .public-rail-controls button:first-child { left: -48px; }
+  .public-site .public-rail-controls button:last-child { right: -48px; }
+  .public-site .public-experiences-grid { grid-template-columns: .8fr 2fr; gap: 25px; }
+  .public-site .public-experience-cards figure { aspect-ratio: 1.05; }
+  .public-site .public-experience-cards figcaption { gap: 6px; padding-inline: 7px; }
+  .public-site .public-experience-cards figcaption svg { width: 19px; }
+  .public-site .public-gatherings h2 { white-space: normal; }
+  .public-site .public-footer-grid { grid-template-columns: 1fr 1fr 1fr; gap: 30px; }
+  .public-site .public-footer-brand { grid-row: span 2; }
+  .public-site .public-footer-contact { grid-column: 2; }
+}
+@media (max-width: 999px) {
+  .public-site .public-room-list { grid-auto-columns: calc((100% - 22px) / 2); gap: 22px; }
+  .public-site .public-room-image { aspect-ratio: 1.6; }
+  .public-site .public-room-facts { flex-wrap: nowrap; }
+  .public-site .public-room-price { display: block; }
+  .public-site .public-room-price span { margin-top: 5px; }
+  .public-site .public-experiences-grid { grid-template-columns: 1fr; gap: 32px; }
+  .public-site .public-experiences-intro > p:not(.public-eyebrow) { max-width: 500px; }
+  .public-site .public-experience-cards figure { aspect-ratio: 1.35; }
+  .public-site .public-faq-grid { gap: 40px; }
+  .public-site .public-gatherings-copy { padding: 48px 32px; }
+}
+@media (max-width: 767px) {
+  .public-site { --public-section-space: 56px; }
+  .public-site h2 { font-size: 36px; }
+  .public-site .public-header { top: 0; padding-block: 16px; }
+  .public-site .public-header.public-header-solid { padding-block: 12px; }
+  .public-site .public-brand > span { font-size: 25px; }
+  .public-site .public-brand-mark { height: 35px; }
+  .public-site .public-header-reserve { display: none; }
+  .public-site .public-hero { align-items: center; height: auto; min-height: 88svh; max-height: none; }
+  .public-site .public-hero-image { object-position: 65% center; }
+  .public-site .public-hero-shade { background: linear-gradient(180deg, #0c28364d, #0c283680), #3c9dc447; }
+  .public-site .public-hero-content { padding-block: 120px; text-align: center; }
+  .public-site .public-hero .public-eyebrow { font-size: 8px; letter-spacing: .24em; }
+  .public-site .public-hero h1 { font-size: clamp(36px, 10.5vw, 70px); margin-top: 12px; line-height: 1.08; }
+  .public-site .public-hero-intro { max-width: 340px; margin-inline: auto; font-size: 14px; line-height: 1.85; margin-top: 22px; }
+  .public-site .public-hero-actions { flex-direction: column; align-items: center; justify-content: center; gap: 14px; margin-top: 28px; }
+  .public-site .public-hero-actions .public-button { width: 100%; max-width: 360px; min-height: 50px; padding-inline: 18px; font-size: 13px; }
+  .public-site .public-hero-scroll { bottom: 15px; }
+  .public-site .public-story-grid { grid-template-columns: 1fr; gap: 32px; }
+  .public-site .public-story-image { aspect-ratio: 1.45; }
+  .public-site .public-story-copy h2 { margin-top: 12px; }
+  .public-site .public-story-copy > p:not(.public-eyebrow) { font-size: 14px; line-height: 1.85; margin-top: 20px; }
+  .public-site .public-story-copy .public-text-link { margin-top: 18px; }
+  .public-site .public-accommodation-heading > p:not(.public-eyebrow) { font-size: 14px; line-height: 1.85; margin-top: 18px; }
+  .public-site .public-desktop-break { display: none; }
+  .public-site .public-accommodation-stage { margin-top: 32px; }
+  .public-site .public-room-list { grid-auto-columns: 90%; gap: 17px; padding-bottom: 6px; }
+  .public-site .public-room-image { aspect-ratio: 1.45; }
+  .public-site .public-room-copy { padding: 20px 17px 24px; }
+  .public-site .public-room h3 { font-size: 29px; }
+  .public-site .public-room-facts { align-items: end; flex-wrap: wrap; gap: 14px; margin-top: 16px; }
+  .public-site .public-room-guests, .public-site .public-room-amenity { font-size: 12px; }
+  .public-site .public-room-price { font-size: 28px; }
+  .public-site .public-rail-controls button { width: 44px; height: 44px; top: 25%; background: #f7f3eced; }
+  .public-site .public-rail-controls button:first-child { left: -15px; }
+  .public-site .public-rail-controls button:last-child { right: -15px; }
+  .public-site .public-view-all { margin-top: 28px; min-width: 0; max-width: 100%; font-size: 13px; }
+  .public-site .public-rate-note { margin-top: 22px; font-size: 10px; }
+  .public-site .public-experiences-intro > p:not(.public-eyebrow) { font-size: 14px; line-height: 1.85; max-width: 350px; }
+  .public-site .public-experience-cards { grid-template-columns: 1fr; gap: 22px; }
+  .public-site .public-experience-cards figure { aspect-ratio: 1.45; }
+  .public-site .public-experience-cards figcaption { justify-content: start; padding-inline: 18px; min-height: 56px; }
+  .public-site .public-experience-cards h3 { font-size: 26px; }
+  .public-site .public-experience-cards figcaption svg { width: 23px; }
+  .public-site .public-gatherings { grid-template-columns: 1fr; }
+  .public-site .public-gatherings-image { min-height: 0; aspect-ratio: 1.35; }
+  .public-site .public-gatherings-copy { padding: 56px var(--public-gutter); }
+  .public-site .public-gatherings h2 { font-size: 38px; max-width: 370px; }
+  .public-site .public-gatherings-copy > p:not(.public-eyebrow) { font-size: 14px; line-height: 1.85; }
+  .public-site .public-gatherings .public-button { padding-inline: 15px; font-size: 13px; }
+  .public-site .public-faq-grid { grid-template-columns: 1fr; gap: 28px; }
+  .public-site .public-faq-heading > p:not(.public-eyebrow) { max-width: 320px; font-size: 14px; }
+  .public-site .t-acc-head { min-height: 70px; padding-block: 20px; font-size: 13px; }
+  .public-site .t-acc-panel-inner > p { font-size: 12px; }
+  .public-site .public-reservation { padding-block: 56px; min-height: 440px; }
+  .public-site .public-reservation h2 { max-width: 350px; margin: 16px auto 0; font-size: 39px; }
+  .public-site .public-reservation-copy > p:not(.public-eyebrow) { font-size: 14px; line-height: 1.85; margin-top: 20px; }
+  .public-site .public-reservation-copy > span { max-width: 280px; margin: 18px auto 0; font-size: 10px; }
+  .public-site .public-reservation .public-button { margin-top: 28px; }
+  .public-site .public-footer { padding-top: 56px; }
+  .public-site .public-footer-grid { grid-template-columns: 1fr 1fr; gap: 36px 20px; padding-bottom: 40px; }
+  .public-site .public-footer-brand { grid-column: 1 / -1; grid-row: auto; border-right: 0; border-bottom: 1px solid #ffffff33; justify-content: center; padding: 0 0 30px; }
+  .public-site .public-footer .public-brand > span { font-size: 31px; }
+  .public-site .public-footer .public-brand-mark { height: 48px; }
+  .public-site .public-footer h2 { font-size: 12px; }
+  .public-site .public-footer nav a { min-height: 44px; font-size: 14px; }
+  .public-site .public-footer-contact { grid-column: 1 / -1; }
+  .public-site .public-footer address { font-size: 13px; }
+  .public-site .public-footer address :is(a, p) { min-height: 44px; }
+  .public-site .public-footer-social { grid-column: 1 / -1; }
+  .public-site .public-socials { gap: 15px; }
+  .public-site .public-socials a { width: 44px; height: 44px; }
+  .public-site .public-footer-inquiry { min-height: 44px; margin-top: 0; font-size: 13px; }
+  .public-site .public-footer-bottom { display: block; padding-block: 18px; font-size: 9px; }
+  .public-site .public-footer-bottom > a { margin-top: 8px; }
+  .public-site .public-menu { padding: 24px; }
+}
+@media (max-width: 359px) {
+  .public-site .public-menu-links a { font-size: 27px; }
+  .public-site .public-room-list { grid-auto-columns: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html:has(.public-site) { scroll-behavior: auto; }
+  .public-site *, .public-site *::before, .public-site *::after { animation: none !important; transition: none !important; }
+  .public-site .public-reveal-ready { opacity: 1; translate: none; }
+}
+
+/* transitions-dev: scoped modal and accordion snippets, including reduced motion. */
+.public-site {
+--modal-open-dur: 250ms;
+  --modal-close-dur: 150ms;
+  --modal-scale: 0.96;
+  --modal-scale-close: 0.96;
+  --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+.t-modal {
+  transform-origin: center;
+  transform: scale(var(--modal-scale));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--modal-open-dur) var(--modal-ease),
+    opacity   var(--modal-open-dur) var(--modal-ease);
+  will-change: transform, opacity;
+}
+.t-modal.is-open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.t-modal.is-closing {
+  transform: scale(var(--modal-scale-close));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--modal-close-dur) var(--modal-ease),
+    opacity   var(--modal-close-dur) var(--modal-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-modal { transition: none !important; }
+}
+--acc-expand: 250ms;
+  --acc-collapse: 250ms;
+  --acc-chevron: 250ms;
+  --acc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+/* grid-template-rows 0fr Ã¢â€ â€™ 1fr gives a clean height animation
+   with no JS measurement; the inner element clips overflow. */
+.t-acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--acc-collapse) var(--acc-ease);
+}
+.t-acc[data-open="true"] .t-acc-panel {
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--acc-expand) var(--acc-ease);
+}
+.t-acc-panel-inner {
+  overflow: hidden;
+  opacity: 0;
+  filter: blur(2px);
+  transition:
+    opacity var(--acc-collapse) var(--acc-ease),
+    filter var(--acc-collapse) var(--acc-ease);
+}
+.t-acc[data-open="true"] .t-acc-panel-inner {
+  opacity: 1;
+  filter: blur(0);
+  transition:
+    opacity var(--acc-expand) var(--acc-ease),
+    filter var(--acc-expand) var(--acc-ease);
+}
+/* Flip the chevron vertically to turn the "v" into a "^".
+   scaleY(-1) about the centre passes through a flat line at
+   the midpoint (same look as a `d:` path morph) but animates
+   in every browser, unlike CSS `d:` morphing (Chromium only).
+   The chevron path is symmetric about the 16x16 viewBox
+   centre, so the flip lands exactly on the "^"; non-scaling
+   -stroke keeps the stroke width constant through the flip. */
+.t-acc-chevron {
+  display: inline-flex;
+  transform: scaleY(1);
+  transform-origin: center;
+  transition: transform var(--acc-chevron) var(--acc-ease);
+}
+.t-acc-chevron path { vector-effect: non-scaling-stroke; }
+.t-acc[data-open="true"] .t-acc-chevron {
+  transform: scaleY(-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-acc-panel, .t-acc-panel-inner, .t-acc-chevron {
+    transition: none !important;
+  }
+}
+}
+

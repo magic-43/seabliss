@@ -47,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jakarta.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${cormorant.variable} ${jakarta.variable}`}>
       <body className="font-sans antialiased bg-seabliss-linen text-seabliss-charcoal selection:bg-seabliss-teal selection:text-white">
         {process.env.NODE_ENV === 'development' && <script id="seabliss-development-worker-reset" dangerouslySetInnerHTML={{ __html: resetDevelopmentWorker }} />}
         {children}

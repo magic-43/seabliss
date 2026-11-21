@@ -80,13 +80,7 @@ export async function createBookingAction(rawInput: unknown): Promise<ActionResu
         revalidatePath('/admin')
         return { success: true, data: { referenceNumber, guestAccessToken } }
       }
-      // The database constraint also covers simultaneous booking requests.
-      if (error.code === '23P01') {
-        // A concurrent retry may have created this same reservation.
-        const retry = await findExisting()
-        if (retry.data) return recoverBooking(retry.data)
-        return { success: false, error: 'The selected dates are no longer available. Please choose other dates.' }
-      }
+      // Requests may overlap; unique constraints still protect retries and references.
       if (error.code !== '23505') return failure(error, 'Could not finalize the reservation.')
       const retry = await findExisting()
       if (retry.error) return failure(retry.error, 'Could not check the reservation request.')
@@ -146,9 +140,18 @@ export async function submitPaymentProofAction(
       if (submissionError || !data) throw submissionError ?? new Error('Missing payment submission')
       submissionId = data
     } catch (submissionError) {
-      const { error: cleanupError } = await bucket.remove([storagePath])
-      if (cleanupError) console.error('Could not remove unrecorded payment receipt', cleanupError)
-      return failure(submissionError, 'Could not record the receipt. Please try again.')
+      // The transaction may have committed before its response was interrupted.
+      // Never remove a receipt that is already linked to a payment submission.
+      const { data: recorded, error: recoveryError } = await supabase.from('payment_submissions')
+        .select('id').eq('booking_id', booking.id).eq('proof_storage_path', storagePath).maybeSingle()
+      if (recorded) {
+        submissionId = recorded.id
+      } else {
+        if (recoveryError) return failure(recoveryError, 'Could not confirm the receipt submission. Check submission status before retrying.')
+        const { error: cleanupError } = await bucket.remove([storagePath])
+        if (cleanupError) console.error('Could not remove unrecorded payment receipt', cleanupError)
+        return failure(submissionError, 'Could not record the receipt. Please try again.')
+      }
     }
     revalidatePath('/admin', 'layout')
     return { success: true, data: { submissionId } }

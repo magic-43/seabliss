@@ -7,7 +7,7 @@ import type { PaymentSubmissionRow, BookingRow, RoomRow } from '@/lib/types/data
 type PaymentActivity = Pick<PaymentSubmissionRow, 'id' | 'amount_claimed' | 'payment_method' | 'created_at' | 'review_status'> & {
   bookings: (Pick<BookingRow, 'reference_number' | 'guest_name'> & { rooms: Pick<RoomRow, 'name'> | null }) | null
 }
-const paymentDay = new Intl.DateTimeFormat('en-PH', { timeZone: 'Asia/Manila', day: '2-digit', month: 'long', year: 'numeric' })
+const paymentDay = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Manila', day: '2-digit', month: 'long', year: 'numeric' })
 
 export default function DashboardView({ totalRevenue, activeRooms, submissions }: {
   totalRevenue: number; activeRooms: number; submissions: PaymentActivity[]

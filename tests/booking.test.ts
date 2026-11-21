@@ -87,6 +87,28 @@ test('booking validation trims guest data and validates retry credentials', () =
   assert.equal(bookingCreationSchema.safeParse({ ...bookingInput, adultGuests: 0 }).success, false)
   assert.equal(bookingCreationSchema.safeParse({ ...bookingInput, guestAccessToken: 'bad' }).success, false)
   assert.equal(bookingCreationSchema.safeParse({ ...bookingInput, guestAccessToken: generateGuestAccessToken().token }).success, true)
+  for (const invalid of [
+    { adultGuests: -1 }, { adultGuests: 1.5 }, { adultGuests: 31 },
+    { childGuests: -1 }, { childGuests: 0.5 }, { childGuests: 21 },
+    { guestEmail: 'not-an-email' }, { guestPhone: '' }, { roomSlug: '' },
+    { clientRequestId: 'not-a-uuid' }, { paymentOption: 'later' },
+  ]) {
+    assert.equal(bookingCreationSchema.safeParse({ ...bookingInput, ...invalid }).success, false)
+  }
+  for (const malformed of [null, [], 'booking', {}]) {
+    assert.equal(bookingCreationSchema.safeParse(malformed).success, false)
+  }
+})
+
+test('distinct guests can request identical and partially overlapping stay dates', () => {
+  const requests = [
+    { guestName: 'Guest A', guestEmail: 'a@example.com', checkIn: '2099-12-10', checkOut: '2099-12-12', clientRequestId: '11111111-1111-4111-8111-111111111111' },
+    { guestName: 'Guest B', guestEmail: 'b@example.com', checkIn: '2099-12-10', checkOut: '2099-12-12', clientRequestId: '22222222-2222-4222-8222-222222222222' },
+    { guestName: 'Guest C', guestEmail: 'c@example.com', checkIn: '2099-12-11', checkOut: '2099-12-13', clientRequestId: '33333333-3333-4333-8333-333333333333' },
+  ]
+  for (const request of requests) {
+    assert.equal(bookingCreationSchema.safeParse({ ...bookingInput, ...request }).success, true)
+  }
 })
 
 test('payment claims reject fractions, invalid tokens, and integer overflow', () => {
