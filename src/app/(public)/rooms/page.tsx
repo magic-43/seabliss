@@ -1,9 +1,11 @@
+import { Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Wifi, Snowflake, Waves, Coffee, ShieldCheck, ArrowRight, WavesLadder } from 'lucide-react'
 import { getPublicResortData } from '@/lib/public/data'
 import { publicMetadata } from '@/lib/public/metadata'
 import RoomsDirectory from '@/components/public/rooms-directory'
+import RoomsSkeleton from '@/components/public/rooms-skeleton'
 import Reveal from '@/components/public/reveal'
 
 export const metadata = publicMetadata(
@@ -12,10 +14,13 @@ export const metadata = publicMetadata(
   '/rooms'
 )
 
-export default async function RoomsPage() {
+async function RoomsDirectoryStream() {
   const { rooms } = await getPublicResortData()
   if (!rooms) throw new Error('Accommodation information is temporarily unavailable.')
+  return <RoomsDirectory rooms={rooms} />
+}
 
+export default function RoomsPage() {
   return (
     <main id="public-content" tabIndex={-1} className="public-rooms-page">
       {/* 1. Photographic hero with restrained centered copy */}
@@ -126,9 +131,9 @@ export default async function RoomsPage() {
               </p>
             </div>
           </Reveal>
-          <Reveal delay={100}>
-            <RoomsDirectory rooms={rooms} />
-          </Reveal>
+          <Suspense fallback={<RoomsSkeleton />}>
+            <RoomsDirectoryStream />
+          </Suspense>
         </div>
       </section>
 

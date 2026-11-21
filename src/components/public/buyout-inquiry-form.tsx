@@ -2,7 +2,7 @@
 
 import { useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
-import { User, Mail, Phone, Sparkles, Calendar, Users, MessageSquare, Send, AlertCircle, CheckCircle2 } from 'lucide-react'
+import { User, Mail, Phone, PartyPopper, Calendar, Users, MessageSquare, Send, AlertCircle, CheckCircle2 } from 'lucide-react'
 import { submitBuyoutInquiryAction } from '@/app/actions/booking'
 import { buyoutInquirySchema } from '@/lib/validations/booking'
 import { issueFields } from './reservation/form-fields'
@@ -13,14 +13,18 @@ export default function BuyoutInquiryForm({ contactHref }: { contactHref: string
   const [uncertain, setUncertain] = useState(false)
   const [message, setMessage] = useState('')
   const [inquiryId, setInquiryId] = useState('')
+  const [eventType, setEventType] = useState('')
+  const [customEventType, setCustomEventType] = useState('')
   const busy = useRef(false)
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (busy.current || uncertain) return
     const fields = Object.fromEntries(new FormData(event.currentTarget))
+    const finalEventType = eventType === 'Other' ? (customEventType.trim() || 'Other') : eventType
     const parsed = buyoutInquirySchema.safeParse({
       ...fields,
+      eventType: finalEventType || undefined,
       guestCount: fields.guestCount ? Number(fields.guestCount) : undefined,
     })
     if (!parsed.success) {
@@ -149,22 +153,43 @@ export default function BuyoutInquiryForm({ contactHref }: { contactHref: string
             </div>
           </div>
 
-          {/* Type of Gathering */}
+          {/* Type of Gathering Dropdown */}
           <div className="public-cielo-field-group">
-            <label htmlFor="eventType" className="public-cielo-field-label">
+            <label htmlFor="eventTypeSelect" className="public-cielo-field-label">
               <span className="public-cielo-label-inline">
-                <Sparkles size={15} aria-hidden="true" />
+                <PartyPopper size={15} aria-hidden="true" />
                 <span>Type of Gathering (Optional)</span>
               </span>
             </label>
-            <input
-              id="eventType"
-              name="eventType"
-              type="text"
-              maxLength={100}
-              placeholder="e.g. 50th Birthday, Family Reunion, Full Resort Buyout"
-              className={'public-cielo-input' + (errors.eventType ? ' is-invalid' : '')}
-            />
+            <select
+              id="eventTypeSelect"
+              value={eventType}
+              onChange={(e) => setEventType(e.target.value)}
+              className={'public-cielo-input bg-white cursor-pointer' + (errors.eventType ? ' is-invalid' : '')}
+            >
+              <option value="">Select gathering type...</option>
+              <option value="Family Reunion & Gathering">Family Reunion & Gathering</option>
+              <option value="Birthday Celebration">Birthday Celebration</option>
+              <option value="Anniversary & Milestone">Anniversary & Milestone</option>
+              <option value="Intimate Wedding / Ceremony">Intimate Wedding / Ceremony</option>
+              <option value="Corporate Retreat / Team Offsite">Corporate Retreat / Team Offsite</option>
+              <option value="Exclusive Estate Buyout">Exclusive Estate Buyout</option>
+              <option value="Other">Other (Please specify)</option>
+            </select>
+            {eventType === 'Other' && (
+              <div className="mt-2.5">
+                <input
+                  id="customEventType"
+                  type="text"
+                  maxLength={100}
+                  placeholder="Please specify your type of gathering..."
+                  value={customEventType}
+                  onChange={(e) => setCustomEventType(e.target.value)}
+                  className="public-cielo-input"
+                  autoFocus
+                />
+              </div>
+            )}
             {errors.eventType && <p className="public-cielo-error-text">{errors.eventType}</p>}
           </div>
 

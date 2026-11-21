@@ -380,7 +380,7 @@ INSERT INTO public.rooms (
   3,
   ARRAY['Buffet Breakfast & Dinner', 'Welcome Drinks upon Arrival', 'Complimentary Wi-Fi', 'Daily Housekeeping & Resort Service', 'Free Use of Swimming Pools & Beach Facilities', 'Free Parking', 'Beach Access & Sun Lounger']::TEXT[],
   ARRAY['Private Plunge Pool', 'Buffet Breakfast Included', 'Complimentary High-speed Wi-Fi', 'Private En-suite Bathrooms', 'Air Conditioning', 'Beachfront Ocean Access', 'Free On-site Parking', 'Dedicated Resort Concierge']::TEXT[],
-  ARRAY['/images/rooms/villa-2/villa-2-1.jpg', '/images/rooms/villa-2/villa-2-2.jpg', '/images/rooms/villa-2/villa-2-3.jpg', '/images/rooms/villa-2/villa-2-4.jpg', '/images/rooms/villa-2/villa-2-5.jpg', '/images/rooms/villa-2/villa-2-6.jpg', '/images/rooms/villa-2/villa-2-7.jpg']::TEXT[]
+  ARRAY['/images/rooms/villa-2/villa-2-cover.png', '/images/rooms/villa-2/villa-2-1.jpg', '/images/rooms/villa-2/villa-2-2.jpg', '/images/rooms/villa-2/villa-2-3.jpg', '/images/rooms/villa-2/villa-2-4.jpg', '/images/rooms/villa-2/villa-2-5.jpg', '/images/rooms/villa-2/villa-2-6.jpg', '/images/rooms/villa-2/villa-2-7.jpg']::TEXT[]
 ),
 (
   'villa-1', 'Villa 1', 'Villa', 29000, 14500, 10, 4,
@@ -400,7 +400,7 @@ INSERT INTO public.rooms (
   5,
   ARRAY['Buffet Breakfast & Dinner', 'Welcome Drinks upon Arrival', 'Complimentary Wi-Fi', 'Daily Housekeeping & Resort Service', 'Free Use of Swimming Pools & Beach Facilities', 'Free Parking', 'Beach Access & Sun Lounger']::TEXT[],
   ARRAY['Buffet Breakfast Included', 'Complimentary High-speed Wi-Fi', 'Spacious En-suite Bathroom', 'Air Conditioning', 'Direct Resort Grounds Access', 'Free On-site Parking', 'Resort Pool Access']::TEXT[],
-  ARRAY['/images/rooms/sanctuary-family-suite/sanctuary-family-suite-1.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-2.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-3.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-4.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-5.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-6.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-7.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-8.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-9.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-10.jpg']::TEXT[]
+  ARRAY['/images/rooms/sanctuary-family-suite/sanctuary-family-suite-6.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-2.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-1.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-3.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-4.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-5.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-7.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-8.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-9.jpg', '/images/rooms/sanctuary-family-suite/sanctuary-family-suite-10.jpg']::TEXT[]
 ),
 (
   'poolside-veranda-suite', 'The Poolside Veranda Suite', 'Couple Suite', 13560, 6780, 2, 1,
@@ -410,7 +410,7 @@ INSERT INTO public.rooms (
   6,
   ARRAY['Buffet Breakfast & Dinner', 'Welcome Drinks upon Arrival', 'Complimentary Wi-Fi', 'Daily Housekeeping & Resort Service', 'Free Use of Swimming Pools & Beach Facilities', 'Free Parking', 'Beach Access & Sun Lounger']::TEXT[],
   ARRAY['Buffet Breakfast Included', 'Complimentary High-speed Wi-Fi', 'Private En-suite Bathroom', 'Air Conditioning', 'Poolside Veranda & Loungers', 'Free On-site Parking', 'Resort Pool Access']::TEXT[],
-  ARRAY['/images/rooms/poolside-veranda-suite/poolside-veranda-suite-1.jpg', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-2.jpg', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-3.jpg', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-4.jpg', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-5.jpg', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-6.jpg']::TEXT[]
+  ARRAY['/images/rooms/poolside-veranda-suite/poolside-veranda-suite-cover.png', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-4.jpg', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-1.jpg', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-2.jpg', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-3.jpg', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-5.jpg', '/images/rooms/poolside-veranda-suite/poolside-veranda-suite-6.jpg']::TEXT[]
 ),
 (
   'horizon-beachfront-suite', 'The Horizon Beachfront Suite', 'Couple Suite', 10900, 5450, 2, 1,

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { CheckCircle2, ShieldCheck, Phone, Home, RefreshCw } from 'lucide-react'
 import { PricingBreakdown } from '@/components/public/reservation/booking-summary'
-import CopyReferenceButton from '@/components/public/reservation/copy-reference-button'
+import BookingReferenceBox from '@/components/public/reservation/booking-reference-box'
 import { getOwnedReservation } from '@/lib/public/reservation-data'
 import { getPublicResortData } from '@/lib/public/data'
 import { getContactLinks } from '@/lib/public/content'
@@ -83,12 +83,7 @@ export default async function ConfirmationPage({
           {/* Reference Card with selectable code & copy button */}
           <div className="public-confirmation-ref-box text-center">
             <span className="public-ref-label">YOUR BOOKING REFERENCE</span>
-            <div className="flex flex-wrap items-center justify-center gap-3 my-2">
-              <div className="public-ref-code" tabIndex={0} aria-label={`Booking reference ${booking.referenceNumber}`}>
-                {booking.referenceNumber}
-              </div>
-              <CopyReferenceButton referenceNumber={booking.referenceNumber} />
-            </div>
+            <BookingReferenceBox referenceNumber={booking.referenceNumber} />
             <p className="public-ref-hint">
               Please save this reference code for your records and check-in verification.
             </p>
