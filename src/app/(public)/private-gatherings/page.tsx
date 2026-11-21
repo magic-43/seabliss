@@ -17,21 +17,21 @@ const GATHERING_TYPES = [
   {
     title: 'Family Reunions & Multi-Gen Escapes',
     tag: 'Large Family Groups',
-    image: '/images/interiors/villa_lounge_living.jpg',
+    image: '/images/gatherings/family-reunion.jpg',
     description:
       'Multiple adjoining beachfront villas, private plunge pools, and spacious indoor-outdoor lounges give your family plenty of room to celebrate together while keeping personal space.',
   },
   {
     title: 'Intimate Celebrations & Milestones',
     tag: 'Birthdays & Anniversaries',
-    image: '/images/rooms/villa-4/villa-4-7.jpg',
+    image: '/images/gatherings/celebration-anniversary.jpg',
     description:
       'Mark special life chapters against the golden sunsets of Lian, Batangas. Oceanfront verandas and secluded grounds create an authentic, relaxed setting for unforgettable memories.',
   },
   {
     title: 'Exclusive Estate Buyouts & Retreats',
     tag: 'Exclusive Property Buyout',
-    image: '/images/beach_aerial/beach_direct_access.png',
+    image: '/images/rooms/villa-4/villa-4-1.jpg',
     description:
       'Reserve the entire resort grounds exclusively for your group. Enjoy full privacy across all villas, private swimming pools, and direct beachfront access without outside guests.',
   },

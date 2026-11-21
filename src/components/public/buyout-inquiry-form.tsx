@@ -2,9 +2,10 @@
 
 import { useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
+import { User, Mail, Phone, Sparkles, Calendar, Users, MessageSquare, Send, AlertCircle, CheckCircle2 } from 'lucide-react'
 import { submitBuyoutInquiryAction } from '@/app/actions/booking'
 import { buyoutInquirySchema } from '@/lib/validations/booking'
-import { InputField, TextareaField, issueFields } from './reservation/form-fields'
+import { issueFields } from './reservation/form-fields'
 
 export default function BuyoutInquiryForm({ contactHref }: { contactHref: string }) {
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -13,27 +14,252 @@ export default function BuyoutInquiryForm({ contactHref }: { contactHref: string
   const [message, setMessage] = useState('')
   const [inquiryId, setInquiryId] = useState('')
   const busy = useRef(false)
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (busy.current || uncertain) return
     const fields = Object.fromEntries(new FormData(event.currentTarget))
-    const parsed = buyoutInquirySchema.safeParse({ ...fields, guestCount: fields.guestCount ? Number(fields.guestCount) : undefined })
-    if (!parsed.success) { setErrors(issueFields(parsed.error.issues)); return }
-    setErrors({}); setMessage(''); busy.current = true; setPending(true)
+    const parsed = buyoutInquirySchema.safeParse({
+      ...fields,
+      guestCount: fields.guestCount ? Number(fields.guestCount) : undefined,
+    })
+    if (!parsed.success) {
+      setErrors(issueFields(parsed.error.issues))
+      return
+    }
+    setErrors({})
+    setMessage('')
+    busy.current = true
+    setPending(true)
     try {
       const result = await submitBuyoutInquiryAction(parsed.data)
       if (result.success) setInquiryId(result.data.inquiryId)
       else setMessage(result.error)
-    } catch { setUncertain(true); setMessage('The response was interrupted. Please contact management before submitting another inquiry, so your request is not duplicated.') }
-    finally { busy.current = false; setPending(false) }
+    } catch {
+      setUncertain(true)
+      setMessage(
+        'The response was interrupted. Please contact management before submitting another inquiry, so your request is not duplicated.'
+      )
+    } finally {
+      busy.current = false
+      setPending(false)
+    }
   }
-  if (inquiryId) return <div className="public-availability-note" role="status"><h2>Your Inquiry Is Recorded</h2><p>Thank you. Contact our management team to discuss the possibilities for your group.</p><p className="public-inquiry-reference">Inquiry reference: {inquiryId}</p><p>A submitted inquiry does not confirm an event, estate buyout, or accommodation availability.</p><div className="public-page-actions"><a href={contactHref} className="public-button public-button-teal">Contact Management</a><Link href="/" className="public-text-link">Return to Seabliss</Link></div></div>
-  return <form onSubmit={submit} noValidate className="public-reservation-form" aria-label="Private gathering inquiry" aria-busy={pending}><fieldset disabled={pending || uncertain} className="public-receipt-fields">
-    <InputField id="contactName" name="contactName" label="Full name" autoComplete="name" required minLength={2} maxLength={100} error={errors.contactName} />
-    <div className="public-form-grid"><InputField id="contactEmail" name="contactEmail" label="Email address" type="email" autoComplete="email" required maxLength={254} error={errors.contactEmail} /><InputField id="contactPhone" name="contactPhone" label="Phone number" type="tel" autoComplete="tel" required minLength={7} maxLength={20} error={errors.contactPhone} /></div>
-    <InputField id="eventType" name="eventType" label="Type of gathering (optional)" maxLength={100} error={errors.eventType} />
-    <div className="public-form-grid"><InputField id="preferredDates" name="preferredDates" label="Preferred dates (optional)" maxLength={500} error={errors.preferredDates} hint="Let us know your dates or how flexible you can be." /><InputField id="guestCount" name="guestCount" label="Estimated guests (optional)" type="number" inputMode="numeric" min={1} max={500} error={errors.guestCount} hint="An inquiry estimate; management confirms suitability and capacity." /></div>
-    <TextareaField id="message" name="message" label="Tell us about your plans (optional)" rows={5} maxLength={2000} error={errors.message} />
-    <p className="public-policy-note">These details are recorded for management to review and follow up. Packages, pricing, capacity, and arrangements will be discussed directly.</p><button type="submit" className="public-button public-button-teal">{pending ? 'Recording Your Inquiry…' : 'Send Your Inquiry'}</button>
-  </fieldset>{message && <p className="public-form-error" role="alert">{message}</p>}{uncertain && <a href={contactHref} className="public-text-link">Contact Management</a>}</form>
+
+  if (inquiryId) {
+    return (
+      <div className="public-cielo-step-card text-center p-8 max-w-2xl mx-auto" role="status">
+        <div className="public-confirmation-icon-wrap mx-auto mb-4" aria-hidden="true">
+          <CheckCircle2 size={36} className="text-emerald-700" />
+        </div>
+        <h2 className="font-serif text-2xl text-seabliss-teal mb-2">Your Inquiry Has Been Recorded</h2>
+        <p className="text-sm text-seabliss-charcoal/80 mb-4">
+          Thank you for reaching out. Our management team will review your requirements and reach out to discuss possibilities for your group.
+        </p>
+        <div className="public-confirmation-ref-box my-6 p-4 rounded-xl border border-outline/20 bg-surface-container/30">
+          <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground block mb-1">
+            Inquiry Reference
+          </span>
+          <span className="font-mono text-lg font-bold text-primary">{inquiryId}</span>
+        </div>
+        <p className="text-xs text-muted-foreground mb-6">
+          A submitted inquiry does not confirm an event, estate buyout, or accommodation availability until finalized with management.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <a href={contactHref} className="public-button public-button-teal">
+            Contact Management
+          </a>
+          <Link href="/" className="public-button-secondary">
+            Return to Seabliss
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="public-inquiry-form-wrapper">
+      <form onSubmit={submit} noValidate className="public-cielo-step-form" aria-label="Private gathering inquiry" aria-busy={pending}>
+        <fieldset disabled={pending || uncertain} className="public-cielo-form-fields space-y-6">
+          <legend className="sr-only">Contact and gathering information</legend>
+
+          {/* Full Name */}
+          <div className="public-cielo-field-group">
+            <label htmlFor="contactName" className="public-cielo-field-label">
+              <span className="public-cielo-label-inline">
+                <User size={15} aria-hidden="true" />
+                <span>Full Name *</span>
+              </span>
+            </label>
+            <input
+              id="contactName"
+              name="contactName"
+              type="text"
+              autoComplete="name"
+              required
+              minLength={2}
+              maxLength={100}
+              placeholder="e.g. Sofia Dimayuga"
+              className={'public-cielo-input' + (errors.contactName ? ' is-invalid' : '')}
+            />
+            {errors.contactName && <p className="public-cielo-error-text">{errors.contactName}</p>}
+          </div>
+
+          {/* Email & Phone Grid */}
+          <div className="public-cielo-form-row">
+            <div className="public-cielo-field-group">
+              <label htmlFor="contactEmail" className="public-cielo-field-label">
+                <span className="public-cielo-label-inline">
+                  <Mail size={15} aria-hidden="true" />
+                  <span>Email Address *</span>
+                </span>
+              </label>
+              <input
+                id="contactEmail"
+                name="contactEmail"
+                type="email"
+                autoComplete="email"
+                required
+                maxLength={254}
+                placeholder="e.g. sofia@example.com"
+                className={'public-cielo-input' + (errors.contactEmail ? ' is-invalid' : '')}
+              />
+              {errors.contactEmail && <p className="public-cielo-error-text">{errors.contactEmail}</p>}
+            </div>
+
+            <div className="public-cielo-field-group">
+              <label htmlFor="contactPhone" className="public-cielo-field-label">
+                <span className="public-cielo-label-inline">
+                  <Phone size={15} aria-hidden="true" />
+                  <span>Phone / Viber Number *</span>
+                </span>
+              </label>
+              <input
+                id="contactPhone"
+                name="contactPhone"
+                type="tel"
+                autoComplete="tel"
+                required
+                minLength={7}
+                maxLength={20}
+                placeholder="e.g. 0917 123 4567"
+                className={'public-cielo-input' + (errors.contactPhone ? ' is-invalid' : '')}
+              />
+              {errors.contactPhone && <p className="public-cielo-error-text">{errors.contactPhone}</p>}
+            </div>
+          </div>
+
+          {/* Type of Gathering */}
+          <div className="public-cielo-field-group">
+            <label htmlFor="eventType" className="public-cielo-field-label">
+              <span className="public-cielo-label-inline">
+                <Sparkles size={15} aria-hidden="true" />
+                <span>Type of Gathering (Optional)</span>
+              </span>
+            </label>
+            <input
+              id="eventType"
+              name="eventType"
+              type="text"
+              maxLength={100}
+              placeholder="e.g. 50th Birthday, Family Reunion, Full Resort Buyout"
+              className={'public-cielo-input' + (errors.eventType ? ' is-invalid' : '')}
+            />
+            {errors.eventType && <p className="public-cielo-error-text">{errors.eventType}</p>}
+          </div>
+
+          {/* Preferred Dates & Guest Count Grid */}
+          <div className="public-cielo-form-row">
+            <div className="public-cielo-field-group">
+              <label htmlFor="preferredDates" className="public-cielo-field-label">
+                <span className="public-cielo-label-inline">
+                  <Calendar size={15} aria-hidden="true" />
+                  <span>Target Dates / Flexibility (Optional)</span>
+                </span>
+              </label>
+              <input
+                id="preferredDates"
+                name="preferredDates"
+                type="text"
+                maxLength={500}
+                placeholder="e.g. Mid-November weekend, or Dec 15–18"
+                className={'public-cielo-input' + (errors.preferredDates ? ' is-invalid' : '')}
+              />
+              <span className="public-cielo-field-hint">Let us know target dates or flexibility.</span>
+              {errors.preferredDates && <p className="public-cielo-error-text">{errors.preferredDates}</p>}
+            </div>
+
+            <div className="public-cielo-field-group">
+              <label htmlFor="guestCount" className="public-cielo-field-label">
+                <span className="public-cielo-label-inline">
+                  <Users size={15} aria-hidden="true" />
+                  <span>Estimated Total Guests (Optional)</span>
+                </span>
+              </label>
+              <input
+                id="guestCount"
+                name="guestCount"
+                type="number"
+                inputMode="numeric"
+                min={1}
+                max={500}
+                placeholder="e.g. 25"
+                className={'public-cielo-input' + (errors.guestCount ? ' is-invalid' : '')}
+              />
+              <span className="public-cielo-field-hint">Management will confirm suitability &amp; capacity.</span>
+              {errors.guestCount && <p className="public-cielo-error-text">{errors.guestCount}</p>}
+            </div>
+          </div>
+
+          {/* Details & Message */}
+          <div className="public-cielo-field-group">
+            <label htmlFor="message" className="public-cielo-field-label">
+              <span className="public-cielo-label-inline">
+                <MessageSquare size={15} aria-hidden="true" />
+                <span>Tell Us About Your Plans &amp; Special Requests (Optional)</span>
+              </span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={4}
+              maxLength={2000}
+              placeholder="Tell us what you have in mind: catering needs, specific villas, event schedule, or audio setup..."
+              className={'public-cielo-textarea' + (errors.message ? ' is-invalid' : '')}
+            />
+            {errors.message && <p className="public-cielo-error-text">{errors.message}</p>}
+          </div>
+
+          <p className="public-cielo-form-note">
+            These details are submitted to management for review. Packages, pricing, villa combinations, and arrangements will be discussed directly.
+          </p>
+
+          <div className="pt-2">
+            <button
+              type="submit"
+              disabled={pending || uncertain}
+              className="public-button public-button-teal public-cielo-submit-btn w-full sm:w-auto"
+            >
+              <span>{pending ? 'Recording Your Inquiry…' : 'Send Your Inquiry'}</span>
+              <Send size={16} aria-hidden="true" />
+            </button>
+          </div>
+        </fieldset>
+
+        {message && (
+          <div className="public-cielo-alert-error mt-4" role="alert">
+            <AlertCircle size={18} className="shrink-0" aria-hidden="true" />
+            <span>{message}</span>
+          </div>
+        )}
+        {uncertain && (
+          <div className="mt-3 text-center">
+            <a href={contactHref} className="public-text-link">
+              Contact Management
+            </a>
+          </div>
+        )}
+      </form>
+    </div>
+  )
 }

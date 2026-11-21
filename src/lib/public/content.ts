@@ -47,10 +47,15 @@ export function getPublicFAQs(settings: PublicSettings | null, rooms: PublicRoom
     { question: 'How do I arrange a stay?', answer: 'Use Request Your Stay to choose an accommodation, enter your dates and guest information, review the charges, and submit payment proof. An inquiry, booking request, or payment submission does not automatically guarantee accommodation availability. Management will contact you to finalize your stay.' },
   ]
   if (settings) {
+    if (Number.isSafeInteger(settings.extra_person_fee) && settings.extra_person_fee >= 0) {
+      items.push({
+        question: 'Can we arrange a stay with extra guests?',
+        answer: `Each accommodation lists its included guest allowance. ${settings.extra_person_fee === 0 ? 'There is currently no extra-person fee.' : `The extra-person fee is ${formatPeso(settings.extra_person_fee)} per extra guest, per night.`} Confirm your full group details with management when planning your stay.`
+      })
+    }
     const checkIn = formatStayTime(settings.check_in_time)
     const checkOut = formatStayTime(settings.check_out_time)
     if (checkIn && checkOut) items.push({ question: 'What are the check-in and check-out times?', answer: `Check-in is at ${checkIn} and check-out is at ${checkOut}, in Philippine local time. Please speak with management about any specific arrival arrangements.` })
-    if (Number.isSafeInteger(settings.extra_person_fee) && settings.extra_person_fee >= 0) items.push({ question: 'Can we arrange a stay with extra guests?', answer: `Each accommodation lists its included guest allowance. ${settings.extra_person_fee === 0 ? 'There is currently no extra-person fee.' : `The extra-person fee is ${formatPeso(settings.extra_person_fee)} per extra guest, per night.`} Confirm your full group details with management when planning your stay.` })
     if (Number.isSafeInteger(settings.security_deposit) && settings.security_deposit > 0) items.push({ question: 'Is there a security deposit?', answer: `A security deposit of ${formatPeso(settings.security_deposit)} is included in the stay's charges. Management can explain the applicable arrangements before you finalize your stay.` })
   }
   if (rooms?.some((room) => room.has_plunge_pool)) items.push({ question: 'Which stays have a private plunge pool?', answer: 'Selected accommodations have a private plunge pool. Look for this detail in the accommodation showcase, then confirm your preferred stay with our team.' })

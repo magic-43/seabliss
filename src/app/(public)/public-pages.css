@@ -15,18 +15,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 440px;
-  height: 52svh;
-  max-height: 600px;
+  min-height: 520px;
+  height: 58svh;
+  max-height: 720px;
   overflow: hidden;
   color: #ffffff;
-  padding-top: 76px;
+  padding-top: 96px;
+  padding-bottom: 64px;
 }
 
 .public-site .public-page-hero.public-hero-compact {
-  min-height: 320px;
-  height: 40svh;
-  max-height: 450px;
+  min-height: 380px;
+  height: 44svh;
+  max-height: 500px;
+  padding-top: 88px;
+  padding-bottom: 48px;
 }
 
 .public-site .public-page-hero-image {
@@ -4381,8 +4384,28 @@
   }
 
   .public-site .public-page-hero {
-    min-height: 380px;
-    height: 48svh;
+    min-height: 520px;
+    height: auto;
+    padding-top: 104px;
+    padding-bottom: 56px;
+  }
+  .public-site .public-page-hero.public-hero-compact {
+    min-height: 360px;
+    height: auto;
+    padding-top: 92px;
+    padding-bottom: 40px;
+  }
+  .public-site .public-hero-anchor-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 12px;
+  }
+  .public-site .public-hero-anchor-actions .public-button {
+    width: 100%;
+    justify-content: center;
   }
   .public-site .public-rooms-strip-anchor {
     margin-top: -24px;
@@ -4668,3 +4691,60 @@
     padding-bottom: calc(106px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* --------------------------------------------------------------------------
+   Room Directory Skeleton Loading Shimmer
+   -------------------------------------------------------------------------- */
+@keyframes public-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.public-site .public-skeleton {
+  background: linear-gradient(90deg, #ede7de 0%, #f6f3ee 50%, #ede7de 100%);
+  background-size: 200% 100%;
+  animation: public-shimmer 1.6s ease-in-out infinite;
+  border-radius: 6px;
+}
+
+.public-site .public-room-row-skeleton {
+  display: flex;
+  border: 1px solid #ded5c6;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fbfbf9;
+  box-shadow: 0 6px 24px rgba(12, 40, 54, 0.05);
+}
+
+.public-site .public-room-row-skeleton .public-skeleton-media {
+  width: 46%;
+  min-height: 380px;
+  flex-shrink: 0;
+}
+
+.public-site .public-room-row-skeleton .public-skeleton-body {
+  flex: 1;
+  padding: 36px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 1024px) {
+  .public-site .public-room-row-skeleton {
+    flex-direction: column;
+  }
+  .public-site .public-room-row-skeleton .public-skeleton-media {
+    width: 100%;
+    min-height: 280px;
+    aspect-ratio: 16 / 10;
+  }
+  .public-site .public-room-row-skeleton .public-skeleton-body {
+    padding: 24px;
+  }
+}
+

@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import { CheckCircle2, ShieldCheck, Phone, Home, RefreshCw } from 'lucide-react'
 import { PricingBreakdown } from '@/components/public/reservation/booking-summary'
+import CopyReferenceButton from '@/components/public/reservation/copy-reference-button'
 import { getOwnedReservation } from '@/lib/public/reservation-data'
 import { getPublicResortData } from '@/lib/public/data'
 import { getContactLinks } from '@/lib/public/content'
-import { submissionMessage, requestDisclaimer } from '@/lib/public/reservation-model'
+import { submissionMessage } from '@/lib/public/reservation-model'
 import { formatDate } from '@/lib/format'
 
 export const metadata = {
@@ -75,16 +76,18 @@ export default async function ConfirmationPage({
             <div className="public-confirmation-icon-wrap" aria-hidden="true">
               <CheckCircle2 size={36} />
             </div>
-            <span className="public-eyebrow">RESERVATION &amp; PAYMENT RECEIVED</span>
             <h1 className="public-confirmation-title">Booking Request Submitted!</h1>
             <p className="public-confirmation-message">{submissionMessage}</p>
           </div>
 
-          {/* Reference Card with selectable code */}
+          {/* Reference Card with selectable code & copy button */}
           <div className="public-confirmation-ref-box text-center">
             <span className="public-ref-label">YOUR BOOKING REFERENCE</span>
-            <div className="public-ref-code" tabIndex={0} aria-label={`Booking reference ${booking.referenceNumber}`}>
-              {booking.referenceNumber}
+            <div className="flex flex-wrap items-center justify-center gap-3 my-2">
+              <div className="public-ref-code" tabIndex={0} aria-label={`Booking reference ${booking.referenceNumber}`}>
+                {booking.referenceNumber}
+              </div>
+              <CopyReferenceButton referenceNumber={booking.referenceNumber} />
             </div>
             <p className="public-ref-hint">
               Please save this reference code for your records and check-in verification.
@@ -143,10 +146,6 @@ export default async function ConfirmationPage({
             <div className="public-confirmation-pricing-wrap">
               <PricingBreakdown pricing={booking.pricing} />
             </div>
-
-            <p className="public-policy-note">
-              {requestDisclaimer} Payment verification does not allocate accommodation automatically.
-            </p>
           </div>
 
           {/* Follow-up Sequence: What Happens Next */}

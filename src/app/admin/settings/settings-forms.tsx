@@ -131,7 +131,6 @@ export default function SettingsForms({ initialSettings: settings }: { initialSe
             <SectionCard title="Social pages" description="Enter the full link, including https://.">
               <div className="space-y-5">
                 <Field id="contact_facebook_url" name="contact_facebook_url" label="Facebook" type="url" inputMode="url" defaultValue={settings.contact_facebook_url ?? ''} placeholder="https://www.facebook.com/yourpage" />
-                <Field id="contact_instagram_url" name="contact_instagram_url" label="Instagram" type="url" inputMode="url" defaultValue={settings.contact_instagram_url ?? ''} placeholder="https://www.instagram.com/yourpage" />
               </div>
             </SectionCard>
           </fieldset>

@@ -48,7 +48,13 @@ export default function PaymentStep({
   const [method, setMethod] = useState<'gcash' | 'bank_transfer'>(
     methods.includes('gcash') ? 'gcash' : (methods[0] as 'gcash' | 'bank_transfer') || 'bank_transfer'
   )
-  const [amount, setAmount] = useState(booking.pricing.amountDue)
+  const halfDeposit = Math.ceil(booking.pricing.totalAmount / 2)
+  const fullTotal = booking.pricing.totalAmount
+  const [paymentOption, setPaymentOption] = useState<'half' | 'full'>(
+    booking.paymentOption === 'full' ? 'full' : 'half'
+  )
+  const currentDue = paymentOption === 'half' ? halfDeposit : fullTotal
+  const [amount, setAmount] = useState(currentDue)
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [chargesAccepted, setChargesAccepted] = useState(!requirePriceReview)
@@ -259,9 +265,9 @@ export default function PaymentStep({
         </div>
         <div className="public-cielo-ref-due">
           <span className="public-cielo-due-label">
-            {booking.paymentOption === 'half' ? '50% Initial Deposit Due' : 'Full Stay Amount Due'}
+            {paymentOption === 'half' ? '50% Initial Deposit Due' : 'Full Stay Amount Due'}
           </span>
-          <span className="public-cielo-due-amount">{formatPeso(booking.pricing.amountDue)}</span>
+          <span className="public-cielo-due-amount">{formatPeso(currentDue)}</span>
         </div>
       </div>
 
@@ -273,6 +279,56 @@ export default function PaymentStep({
           </span>
         </div>
       )}
+
+      {/* Payment Option: 50% Down Payment vs Full Payment */}
+      <div className="public-cielo-field-group">
+        <label className="public-cielo-field-label block mb-2">Payment Option</label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              setPaymentOption('half')
+              setAmount(halfDeposit)
+            }}
+            aria-pressed={paymentOption === 'half'}
+            className={
+              'p-3.5 rounded-xl border text-left transition-all ' +
+              (paymentOption === 'half'
+                ? 'border-[#195b6d] bg-[#195b6d]/5 ring-2 ring-[#195b6d]'
+                : 'border-black/10 hover:border-black/20 bg-white')
+            }
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-bold text-sm text-[#0c2836]">50% Down Payment</span>
+              <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-[#e4c78f]/30 text-[#856404]">Deposit</span>
+            </div>
+            <div className="text-base font-bold text-[#195b6d] font-mono">{formatPeso(halfDeposit)}</div>
+            <div className="text-[11px] text-neutral-500 mt-1">Remaining {formatPeso(fullTotal - halfDeposit)} settled upon check-in</div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setPaymentOption('full')
+              setAmount(fullTotal)
+            }}
+            aria-pressed={paymentOption === 'full'}
+            className={
+              'p-3.5 rounded-xl border text-left transition-all ' +
+              (paymentOption === 'full'
+                ? 'border-[#195b6d] bg-[#195b6d]/5 ring-2 ring-[#195b6d]'
+                : 'border-black/10 hover:border-black/20 bg-white')
+            }
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-bold text-sm text-[#0c2836]">Full Payment</span>
+              <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">100%</span>
+            </div>
+            <div className="text-base font-bold text-[#195b6d] font-mono">{formatPeso(fullTotal)}</div>
+            <div className="text-[11px] text-neutral-500 mt-1">Settle full amount in advance</div>
+          </button>
+        </div>
+      </div>
 
       {/* Payment Method Selector Tabs (Cielo style) */}
       <div className="public-cielo-method-tabs-group">
@@ -331,7 +387,7 @@ export default function PaymentStep({
             <div className="public-cielo-account-row public-cielo-account-total-row">
               <span className="public-cielo-account-label font-bold">Amount to Send:</span>
               <strong className="public-cielo-account-amount">
-                {formatPeso(booking.pricing.amountDue)}
+                {formatPeso(currentDue)}
               </strong>
             </div>
           </div>
@@ -360,7 +416,7 @@ export default function PaymentStep({
             <div className="public-cielo-account-row public-cielo-account-total-row">
               <span className="public-cielo-account-label font-bold">Amount to Send:</span>
               <strong className="public-cielo-account-amount">
-                {formatPeso(booking.pricing.amountDue)}
+                {formatPeso(currentDue)}
               </strong>
             </div>
           </div>
